@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Admin Dashboard | Voltify.lk</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+  <div class="admin-shell">
+    <aside class="sidebar">
+      <a class="logo" href="/"><img src="/assets/logo.png" alt="Voltify.lk logo"><span>Voltify.lk<small>Admin Dashboard</small></span></a>
+      <button class="side-link active" data-tab="dashboard">Dashboard</button>
+      <button class="side-link" data-tab="products">Products</button>
+      <button class="side-link" data-tab="orders">Orders</button>
+      <button class="side-link" data-tab="reviews">Reviews</button>
+      <button class="side-link" data-tab="brands">Brands & Categories</button>
+      <button class="side-link" data-tab="finder">Finder Manager</button>
+      <button class="side-link" data-tab="suppliers">Suppliers</button>
+      <button class="side-link" data-tab="reports">Reports</button>
+      <button class="side-link" data-tab="notifications">Notifications</button>
+      <button class="side-link" data-tab="settings">Settings</button>
+      <button class="side-link" id="logoutBtn">Logout</button>
+    </aside>
+    <main class="admin-main">
+      <div class="admin-top">
+        <div><div class="eyebrow">Voltify.lk</div><h2 id="adminTitle">Dashboard</h2></div>
+        <a class="btn ghost" href="/" target="_blank">Open Website</a>
+      </div>
+
+      <section class="admin-section active" id="tab-dashboard">
+        <div class="grid four" id="statsGrid"></div>
+        <div class="grid two section">
+          <div class="card"><h3>Low Stock</h3><div id="lowStockList"></div></div>
+          <div class="card"><h3>Recent Activity</h3><div id="activityList"></div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="tab-products">
+        <div class="grid two">
+          <div class="card">
+            <h3>Create / Update Product</h3>
+            <div class="form-grid">
+              <input id="productId" type="hidden">
+              <input id="pName" placeholder="Product name">
+              <select id="pBrand"><option value="">Select brand</option></select>
+              <select id="pCategory"><option value="">Select category</option></select>
+              <input id="pSku" placeholder="SKU">
+              <input id="pPrice" type="number" placeholder="Price">
+              <input id="pDiscount" type="number" placeholder="Discount price">
+              <input id="pStock" type="number" placeholder="Stock quantity">
+              <input id="pWarranty" placeholder="Warranty period">
+              <textarea id="pDescription" class="full" placeholder="Product description"></textarea>
+              <textarea id="pSpecs" class="full" placeholder="Specifications"></textarea>
+              <textarea id="pCompatibility" class="full" placeholder="Compatibility"></textarea>
+              <input id="pTags" class="full" placeholder="Tags comma separated">
+              <label><input id="pFeatured" type="checkbox"> Featured</label>
+              <label><input id="pNew" type="checkbox"> New Arrival</label>
+              <label><input id="pBest" type="checkbox"> Best Seller</label>
+              <label><input id="pTrending" type="checkbox"> Trending</label>
+              <label><input id="pShowMenu" type="checkbox" checked> Show in header/deals menu</label>
+              <input id="pMenuOrder" type="number" placeholder="Header position e.g. 1">
+              <label class="full">Deal ends at <input id="pDealEndsAt" type="datetime-local"></label>
+              <div class="full upload-preview" id="imagePreview">Main image preview</div>
+              <input class="full" type="file" id="mainImage" accept="image/*">
+              <div class="full upload-preview" id="galleryPreview">Gallery images preview</div>
+              <input class="full" type="file" id="galleryImages" accept="image/*" multiple>
+              <input class="full" id="pVideo" placeholder="Product video URL">
+              <button class="btn full" id="saveProductBtn">Save Product</button>
+              <button class="btn ghost full" id="clearProductBtn">Clear Form</button>
+            </div>
+            <p class="message" id="productMessage"></p>
+          </div>
+          <div class="card"><h3>Product List</h3><div class="table-wrap"><table><thead><tr><th>Product</th><th>Brand</th><th>Price</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="adminProductRows"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="tab-orders">
+        <div class="card"><h3>Orders</h3><p>Print invoices and packing slips from each order. Stock is automatically reduced when checkout is completed.</p><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody id="orderRows"></tbody></table></div></div>
+      </section>
+
+      <section class="admin-section" id="tab-reviews">
+        <div class="card"><h3>Review Approval</h3><p>No fake reviews. Customer reviews stay pending until approved here.</p><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Rating</th><th>Comment</th><th>Status</th><th>Actions</th></tr></thead><tbody id="reviewRows"></tbody></table></div></div>
+      </section>
+
+      <section class="admin-section" id="tab-brands">
+        <div class="grid two">
+          <div class="card">
+            <h3>Manage Brands</h3>
+            <p>Add, edit, delete and upload a logo/photo icon for each brand.</p>
+            <div class="form-grid">
+              <input id="brandId" type="hidden">
+              <input id="brandName" placeholder="Brand name">
+              <input id="brandIconText" placeholder="Text icon e.g. AP, JBL, ⚡">
+              <textarea id="brandDescription" class="full" placeholder="Description"></textarea>
+              <div class="full upload-preview mini" id="brandLogoPreview">Brand logo preview</div>
+              <input class="full" type="file" id="brandLogoFile" accept="image/*">
+              <label><input id="brandActive" type="checkbox" checked> Active</label>
+              <label><input id="brandShowMenu" type="checkbox" checked> Show in header</label>
+              <input id="brandMenuOrder" type="number" placeholder="Header position">
+              <button class="btn" id="saveBrandBtn">Save Brand</button>
+              <button class="btn ghost" id="clearBrandBtn">Clear</button>
+            </div>
+            <p class="message" id="brandMessage"></p>
+          </div>
+          <div class="card"><h3>Brand List</h3><div class="table-wrap compact"><table><thead><tr><th>Logo</th><th>Brand</th><th>Actions</th></tr></thead><tbody id="brandList"></tbody></table></div></div>
+        </div>
+        <div class="grid two section-tight">
+          <div class="card">
+            <h3>Manage Categories</h3>
+            <p>Add, edit, delete and choose a photo icon or text/emoji icon.</p>
+            <div class="form-grid">
+              <input id="categoryId" type="hidden">
+              <input id="categoryName" placeholder="Category name">
+              <input id="categoryIcon" placeholder="Text icon e.g. 🔋 or PB">
+              <textarea id="categoryDescription" class="full" placeholder="Category description"></textarea>
+              <div class="full upload-preview mini" id="categoryIconPreview">Category icon preview</div>
+              <input class="full" type="file" id="categoryIconFile" accept="image/*">
+              <label><input id="categoryActive" type="checkbox" checked> Active</label>
+              <label><input id="categoryShowMenu" type="checkbox" checked> Show in header</label>
+              <input id="categoryMenuOrder" type="number" placeholder="Header position">
+              <button class="btn" id="saveCategoryBtn">Save Category</button>
+              <button class="btn ghost" id="clearCategoryBtn">Clear</button>
+            </div>
+            <p class="message" id="categoryMessage"></p>
+          </div>
+          <div class="card"><h3>Category List</h3><div class="table-wrap compact"><table><thead><tr><th>Icon</th><th>Category</th><th>Actions</th></tr></thead><tbody id="categoryList"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="tab-finder">
+        <div class="grid two">
+          <div class="card">
+            <h3>Manage Compatible Devices</h3>
+            <p>Add every phone brand/model here. The customer finder will use these records.</p>
+            <div class="form-grid">
+              <input id="deviceId" type="hidden">
+              <input id="deviceBrand" placeholder="Device brand e.g. Apple">
+              <input id="deviceModel" placeholder="Device model e.g. iPhone 15 Pro Max">
+              <input id="deviceCategories" class="full" placeholder="Recommended categories comma separated e.g. Chargers, Phone Cases, Power Banks">
+              <textarea id="deviceKeywords" class="full" placeholder="Finder keywords comma separated e.g. iPhone 15, USB-C, MagSafe, 20W"></textarea>
+              <textarea id="deviceNotes" class="full" placeholder="Admin notes"></textarea>
+              <button class="btn" id="saveDeviceBtn">Save Device</button>
+              <button class="btn ghost" id="clearDeviceBtn">Clear</button>
+            </div>
+            <p class="message" id="deviceMessage"></p>
+          </div>
+          <div class="card"><h3>Device List</h3><div class="table-wrap compact"><table><thead><tr><th>Device</th><th>Categories</th><th>Actions</th></tr></thead><tbody id="deviceRows"></tbody></table></div></div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="tab-suppliers">
+        <div class="grid two"><div class="card"><h3>Add Supplier</h3><div class="form-grid"><input id="supName" placeholder="Supplier name"><input id="supContact" placeholder="Contact person"><input id="supPhone" placeholder="Phone"><input id="supEmail" placeholder="Email"><textarea id="supAddress" class="full" placeholder="Address"></textarea><textarea id="supNotes" class="full" placeholder="Notes"></textarea><button class="btn full" id="addSupplierBtn">Save Supplier</button></div></div><div class="card"><h3>Supplier List</h3><div id="supplierList"></div></div></div>
+      </section>
+
+      <section class="admin-section" id="tab-reports">
+        <div class="grid three"><div class="kpi"><span>Revenue</span><strong id="reportRevenue">Rs.0</strong></div><div class="kpi"><span>Orders</span><strong id="reportOrders">0</strong></div><div class="kpi"><span>Products</span><strong id="reportProducts">0</strong></div></div><div class="card" style="margin-top:18px"><h3>Exports</h3><p>CSV export is ready. PDF/Excel can be connected later with a reporting library.</p><button class="btn" id="exportCsvBtn">Export CSV</button></div>
+      </section>
+
+      <section class="admin-section" id="tab-notifications"><div class="card"><h3>Email / WhatsApp Notifications</h3><p>New orders create notification records. WhatsApp links are ready. Email sending is prepared as a setting placeholder until SMTP/API credentials are added.</p><div class="notification-list" id="notificationList"></div></div></section>
+
+      <section class="admin-section" id="tab-settings">
+        <div class="card"><h3>Website Settings</h3><div class="form-grid"><input id="settingWhatsapp" placeholder="WhatsApp number"><input id="settingNotifyEmail" placeholder="Notification email"><input id="settingFreeDelivery" type="number" placeholder="Free delivery over"><input id="settingShipping" type="number" placeholder="Default shipping charge"><input id="settingInvoicePrefix" placeholder="Invoice prefix e.g. VTF"><label><input id="settingCOD" type="checkbox"> COD enabled</label><label><input id="settingPayHere" type="checkbox"> PayHere enabled</label><label><input id="settingEmailNotify" type="checkbox"> Email notifications enabled</label><label><input id="settingWhatsappNotify" type="checkbox"> WhatsApp notifications enabled</label><button class="btn full" id="saveSettingsBtn">Save Settings</button></div><p class="message" id="settingsMessage"></p></div>
+      </section>
+    </main>
+  </div>
+  <script src="/assets/admin.js"></script>
+</body>
+</html>
